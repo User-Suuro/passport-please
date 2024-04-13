@@ -1,7 +1,8 @@
-
 import java.util.Scanner;
 import java.util.Queue;
 import java.util.LinkedList;
+import java.util.Date;
+
 
 public class main01 {
     // To do: 
@@ -11,37 +12,71 @@ public class main01 {
     // Under this, we also need to create a a random date, the a comparator for checking the expiry date
     // For current date we can get system time, if the civilian passport date is greater than our system time, then it is a expired passport
     // Forbidden name, and occupation concept is the same
-        
 
 
     public static Scanner scanner = new Scanner(System.in);
     
     public static void main(String[] args) {
-        clrscr();
-        addDialogEffect("Good Morning Officer");
-        clrscr();
-        addDialogEffect("Here's my passport: ");
-
-      
-
+        // -- SETUP -- //
         Queue<Civilian> queue = new LinkedList<>();
-  
-        // ADDING INSTANCES IN QUEUE
-      
-        Civilian civilian01 = new Civilian("Bob", "Carpenter", 23);
+        int numberOfApprovedCivilians = 0;
+        int civilianNumber = 0;
+
+        // ADDING INSTANCES IN QUEUE (INITIAL CIVILIAN) - WE NEED TO RANDOMIZE THIS TOO
+        Civilian civilian01 = new Civilian("Bob", "Carpenter", 23, "04-12-2024", "Hello Officer");
         queue.offer(civilian01);
 
+        // -- MAIN LOOP -- // 
+        while (true){
 
-        // REMOVING & RETRIEVING INSTANCES IN QUEUE
-        Civilian retrievedCivilan = queue.poll();
-        System.out.println("Civilian 01: ");
-        System.out.println("Name is: " + retrievedCivilan.name);
-        System.out.println("Age: " + retrievedCivilan.age);
-        System.out.println("Occupation: " + retrievedCivilan.occupation);
+            // REMOVING & RETRIEVING INSTANCES IN QUEUE
+            Civilian retrievedCivilan = queue.poll();
+    
+            addDialogEffect(retrievedCivilan.dialog);
+            clrscr();
+
+            addDialogEffect("Here's my passport: ");
+            clrscr();
+            
+
+            // MAYBE WE CAN CREATE SIMPLE BORDER FOR THIS ??
+            System.out.println(" ------ PASSPORT DETAILS ---------");
+            System.out.println("Civilian " + civilianNumber + ":");
+            System.out.println("Name: " + retrievedCivilan.name);
+            System.out.println("Age: " + retrievedCivilan.age);
+            System.out.println("Occupation: " + retrievedCivilan.occupation);
+            System.out.println("Expiration Date: " + retrievedCivilan.expiration);
+            
+            // CHECK THE INSTANCES VALUE (MAKE A FUNCTION FOR IT) - IN THAT FUNCTION, ALL FORBIDDEN VALUES ARE THERE, THIS WILL ONLY RETURN TRUE OR FALSE
+
+            // IF IT RETURENED FALSE, BREAK THE MAIN LOOP
+            break; // break for now (debugging purposes)
+
+
+
+
+            // KEEP CREATING INSTANCES AS WE APPROVE A CIVILIAN
+            // RANDOMIZE NAME, AGE, OCCUPATION, AND EXPIRATION
+        }
+
+        
         
     }
 
- 
+
+    public static boolean checkPassport(String name, int age, String occupation, String expdate){
+        
+        // TO DO: (FORBIDDEN VALUES CHECKER) 
+        // compare the date today, to the date of passport for checking if the passport is expired
+        // create one criminal
+        // age validator
+        // occupation validator
+
+        return false;
+    }
+    
+
+    
     // -- UTILS -- //
 
     // Clear Screen method
@@ -78,17 +113,25 @@ public class main01 {
          System.out.println("Please press any key to continue");
          scanner.nextLine();
     }
+
+   
 }
+
+
 
 class Civilian{
     String name;
     String occupation;
+    String expiration;
     int age;
-   
-    Civilian(String name, String occupation, int age){
+    String dialog;
+    
+    Civilian(String name, String occupation, int age, String expiration, String dialog){
         this.name = name;
         this.occupation = occupation;
         this.age = age;
+        this.expiration = expiration;
+        this.dialog = dialog;
     }
 
 }
