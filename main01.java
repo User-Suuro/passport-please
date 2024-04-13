@@ -2,7 +2,7 @@ import java.util.Scanner;
 import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Date;
-
+import java.util.Random;
 
 public class main01 {
     // To do: 
@@ -21,6 +21,16 @@ public class main01 {
         Queue<Civilian> queue = new LinkedList<>();
         int numberOfApprovedCivilians = 0;
         int civilianNumber = 0;
+        
+
+        // -- CONSTANTS -- // 
+        String[] firstNames = {"John", "Jane", "Alice", "Bob", "Michael", "Emily", "David", "Sarah"};
+        String[] lastNames = {"Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson"};
+
+        // create random criminal name
+        
+
+
 
         // ADDING INSTANCES IN QUEUE (INITIAL CIVILIAN) - WE NEED TO RANDOMIZE THIS TOO
         Civilian civilian01 = new Civilian("Bob", "Carpenter", 23, "04-12-2024", "Hello Officer");
@@ -57,6 +67,9 @@ public class main01 {
 
             // KEEP CREATING INSTANCES AS WE APPROVE A CIVILIAN
             // RANDOMIZE NAME, AGE, OCCUPATION, AND EXPIRATION
+
+
+
         }
 
         
@@ -64,7 +77,7 @@ public class main01 {
     }
 
 
-    public static boolean checkPassport(String name, int age, String occupation, String expdate){
+    public static boolean checkPassport(String criminalName, String name, int age, String occupation, String expdate){
         
         // TO DO: (FORBIDDEN VALUES CHECKER) 
         // compare the date today, to the date of passport for checking if the passport is expired
