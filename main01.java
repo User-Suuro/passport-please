@@ -15,7 +15,8 @@ public class main01 {
 
 
     public static Scanner scanner = new Scanner(System.in);
-    
+    public static Random rand = new Random();
+
     public static void main(String[] args) {
         // -- SETUP -- //
         Queue<Civilian> queue = new LinkedList<>();
@@ -26,12 +27,74 @@ public class main01 {
         // -- CONSTANTS -- // 
         String[] firstNames = {"John", "Jane", "Alice", "Bob", "Michael", "Emily", "David", "Sarah"};
         String[] lastNames = {"Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson"};
+        String[] goodOccupations = {
+            "Teacher",
+            "Doctor",
+            "Engineer",
+            "Software Developer",
+            "Nurse",
+            "Accountant",
+            "Lawyer",
+            "Chef",
+            "Artist",
+            "Writer",
+            "Musician",
+            "Police Officer",
+            "Firefighter",
+            "Architect",
+            "Electrician",
+            "Plumber",
+            "Mechanic",
+            "Real Estate Agent",
+            "Entrepreneur",
+            "Scientist"
+        };
+
+        String[] badOccupations = {
+            "Kidnapper",
+            "Thief",
+            "Burglar",
+            "Assassin",
+            "Drug Dealer",
+            "Bank Robber",
+            "Scammer",
+            "Blackmailer",
+            "Counterfeiter",
+            "Smuggler",
+            "Hacker",
+            "Fraudster",
+            "Pirate",
+            "Arsonist",
+            "Embezzler",
+            "Extortionist",
+            "Hitman",
+            "Con Artist",
+            "Fence",
+            "Money Launderer"
+        };
+        
+        // COMBINE THE TWO ARRAY
+        String[] occupations = new String[goodOccupations.length + badOccupations.length];
+        
+        // Copy elements from goodOccupations
+        for (int i = 0; i < goodOccupations.length; i++) {
+            occupations[i] = goodOccupations[i];
+        }
+        
+        // Copy elements from badOccupations
+        for (int i = 0; i < badOccupations.length; i++) {
+            occupations[goodOccupations.length + i] = badOccupations[i];
+        }
+        
+        // shuffle just to make sure it is random
+        occupations = shuffle(occupations);
+
 
         // create random criminal name
+        int randNamePicker01 = rand.nextInt(firstNames.length);
+        int randNamePicker02 = rand.nextInt(lastNames.length);
+        String criminalName = firstNames[randNamePicker01] + " " + lastNames[randNamePicker02];
         
-
-
-
         // ADDING INSTANCES IN QUEUE (INITIAL CIVILIAN) - WE NEED TO RANDOMIZE THIS TOO
         Civilian civilian01 = new Civilian("Bob", "Carpenter", 23, "04-12-2024", "Hello Officer");
         queue.offer(civilian01);
@@ -59,7 +122,7 @@ public class main01 {
             
             // CHECK THE INSTANCES VALUE (MAKE A FUNCTION FOR IT) - IN THAT FUNCTION, ALL FORBIDDEN VALUES ARE THERE, THIS WILL ONLY RETURN TRUE OR FALSE
 
-            // IF IT RETURENED FALSE, BREAK THE MAIN LOOP
+            // IF IT RETURNED FALSE, BREAK THE MAIN LOOP
             break; // break for now (debugging purposes)
 
 
@@ -67,7 +130,7 @@ public class main01 {
 
             // KEEP CREATING INSTANCES AS WE APPROVE A CIVILIAN
             // RANDOMIZE NAME, AGE, OCCUPATION, AND EXPIRATION
-
+        
 
 
         }
@@ -88,9 +151,25 @@ public class main01 {
         return false;
     }
     
+    //method for shuffling 
+    public static String[] shuffle(String[] arr)
+    {
+        //fisher-yates shuffle
+        int index;
+        String temp;
+        
+        for (int i = arr.length - 1; i > 0; i--)
+        {
+            index = rand.nextInt(i + 1);
+            temp = arr[index];
+            arr[index] = arr[i];
+            arr[i] = temp;
+        }
+        return arr;
+    }
 
     
-    // -- UTILS -- //
+    // -- DISPLAY UTILS -- //
 
     // Clear Screen method
     public static void clrscr() {
