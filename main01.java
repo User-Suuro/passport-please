@@ -1,8 +1,11 @@
 import java.util.Scanner;
 import java.util.Queue;
 import java.util.LinkedList;
-import java.util.Date;
 import java.util.Random;
+
+// DATE IMPORTS
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class main01 {
     // To do: 
@@ -18,15 +21,49 @@ public class main01 {
     public static Random rand = new Random();
 
     public static void main(String[] args) {
-        // -- SETUP -- //
+        clrscr();
+
+        // -- STATES -- //
         Queue<Civilian> queue = new LinkedList<>();
         int numberOfApprovedCivilians = 0;
-        int civilianNumber = 0;
-        
+        int civilianNumber = 0; 
 
         // -- CONSTANTS -- // 
+
+        // NAME
         String[] firstNames = {"John", "Jane", "Alice", "Bob", "Michael", "Emily", "David", "Sarah"};
         String[] lastNames = {"Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson"};
+
+        // CRIMINAL NAME
+        String criminal_fname = firstNames[rand.nextInt(firstNames.length)];
+        String criminal_lname = lastNames[rand.nextInt(firstNames.length)];
+
+        // DIALOG
+        String[] greetingDialogs = {
+            "Hello!",
+            "Hi there!",
+            "Good morning!",
+            "Good afternoon!",
+            "Good evening!",
+            "Hey!",
+            "Greetings!",
+            "Howdy!",
+            "Salutations!",
+            "What's up?",
+            "Yo!",
+            "Hi, how are you?",
+            "Nice to meet you!",
+            "Hey, what's going on?",
+            "How's it going?",
+            "Hi, nice to see you!",
+            "Long time no see!",
+            "Hey, how have you been?",
+            "Hello, how's everything?",
+            "Good to see you!",
+        };
+
+
+        // OCCUPATIONS
         String[] goodOccupations = {
             "Teacher",
             "Doctor",
@@ -85,41 +122,50 @@ public class main01 {
         for (int i = 0; i < badOccupations.length; i++) {
             occupations[goodOccupations.length + i] = badOccupations[i];
         }
-        
+           
         // shuffle just to make sure it is random
         occupations = shuffle(occupations);
 
+        // DATE
+        LocalDate getDate = LocalDate.now();
+        String formatCurrentDate = formatDate(getDate);
 
-        // create random criminal name
-        int randNamePicker01 = rand.nextInt(firstNames.length);
-        int randNamePicker02 = rand.nextInt(lastNames.length);
-        String criminalName = firstNames[randNamePicker01] + " " + lastNames[randNamePicker02];
+        // ADDING INSTANCES IN QUEUE (INITIAL CIVILIAN) 
+        LocalDate startDate = getDate.minusMonths(1); // Start date is one month behind the current date
+        LocalDate endDate = getDate.plusMonths(1);    // End date is one month ahead of the current date
         
-        // ADDING INSTANCES IN QUEUE (INITIAL CIVILIAN) - WE NEED TO RANDOMIZE THIS TOO
-        Civilian civilian01 = new Civilian("Bob", "Carpenter", 23, "04-12-2024", "Hello Officer");
-        queue.offer(civilian01);
+       
+        displayIntro(formatCurrentDate, criminal_fname, criminal_lname);
+
 
         // -- MAIN LOOP -- // 
         while (true){
+            clrscr();
+
+            // KEEP CREATING INSTANCES AS WE APPROVE A CIVILIAN
+            LocalDate randomDate = generateRandomDate(startDate, endDate);
+            Civilian civilian = new Civilian(firstNames[rand.nextInt(firstNames.length)], firstNames[rand.nextInt(lastNames.length)], 
+            occupations[rand.nextInt(occupations.length)], generateRandomAge(15, 80), formatDate(randomDate), greetingDialogs[rand.nextInt(greetingDialogs.length)]);
+            queue.offer(civilian);
 
             // REMOVING & RETRIEVING INSTANCES IN QUEUE
             Civilian retrievedCivilan = queue.poll();
-    
+            System.out.println("Civilian " + civilianNumber + ":");
             addDialogEffect(retrievedCivilan.dialog);
-            clrscr();
-
             addDialogEffect("Here's my passport: ");
             clrscr();
             
 
             // MAYBE WE CAN CREATE SIMPLE BORDER FOR THIS ??
             System.out.println(" ------ PASSPORT DETAILS ---------");
-            System.out.println("Civilian " + civilianNumber + ":");
-            System.out.println("Name: " + retrievedCivilan.name);
+            System.out.println("First Name: " + retrievedCivilan.fname);
+            System.out.println("Last Name: " + retrievedCivilan.lname);
             System.out.println("Age: " + retrievedCivilan.age);
             System.out.println("Occupation: " + retrievedCivilan.occupation);
             System.out.println("Expiration Date: " + retrievedCivilan.expiration);
             
+            // DECISION INPUT
+
             // CHECK THE INSTANCES VALUE (MAKE A FUNCTION FOR IT) - IN THAT FUNCTION, ALL FORBIDDEN VALUES ARE THERE, THIS WILL ONLY RETURN TRUE OR FALSE
 
             // IF IT RETURNED FALSE, BREAK THE MAIN LOOP
@@ -128,17 +174,18 @@ public class main01 {
 
 
 
-            // KEEP CREATING INSTANCES AS WE APPROVE A CIVILIAN
             // RANDOMIZE NAME, AGE, OCCUPATION, AND EXPIRATION
-        
-
+            
 
         }
 
-        
-        
     }
 
+    public static void displayIntro(String date, String criminal_fname, String criminal_lname){
+        addDialogEffect("Today is " + date);
+        addDialogEffect("NEWS: WANTED CRIMINAL: First Name: " + criminal_fname + " Last Name: " + criminal_lname);
+        addDialogEffect("We decided to open the borders");
+    }
 
     public static boolean checkPassport(String criminalName, String name, int age, String occupation, String expdate){
         
@@ -168,7 +215,37 @@ public class main01 {
         return arr;
     }
 
+    public static String formatDate(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+        return date.format(formatter);
+    }
+
+    // -- RANDOM GENERATOR UTILS -- //
+    public static int[] generateRandomIntArray(int size, int min, int max) {
+        int[] arr = new int[size];
+        Random rand = new Random();
+        for (int i = 0; i < size; i++) {
+            arr[i] = rand.nextInt((max - min) + 1) + min;
+        }
+        return arr;
+    }
+
+    public static int generateRandomAge(int minAge, int maxAge) {
+        Random rand = new Random();
+        return rand.nextInt((maxAge - minAge) + 1) + minAge;
+    }
+
     
+    public static LocalDate generateRandomDate(LocalDate startDate, LocalDate endDate) {
+        long startEpochDay = startDate.toEpochDay();
+        long endEpochDay = endDate.toEpochDay();
+        Random random = new Random();
+        long randomEpochDay = startEpochDay + random.nextInt((int) (endEpochDay - startEpochDay));
+        return LocalDate.ofEpochDay(randomEpochDay);
+    }
+
+
+
     // -- DISPLAY UTILS -- //
 
     // Clear Screen method
@@ -212,14 +289,16 @@ public class main01 {
 
 
 class Civilian{
-    String name;
+    String fname;
+    String lname;
     String occupation;
     String expiration;
     int age;
     String dialog;
     
-    Civilian(String name, String occupation, int age, String expiration, String dialog){
-        this.name = name;
+    Civilian(String fname, String lname, String occupation, int age, String expiration, String dialog){
+        this.fname = fname;
+        this.lname = lname;
         this.occupation = occupation;
         this.age = age;
         this.expiration = expiration;
