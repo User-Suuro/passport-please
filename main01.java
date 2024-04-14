@@ -8,15 +8,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class main01 {
-    // To do: 
-    // Store instances to queue, when we queue.offer or remove an item to array, we need to create another instance of civilian again (so it loops)
-    // Create a main loop, whereas it breaks if the player won or lose
-    // Create a detector for forbidden datas (this always run in main loop) - probably iterate all the data in the instances? then compare it to another array if that forbidden element exist
-    // Under this, we also need to create a a random date, the a comparator for checking the expiry date
-    // For current date we can get system time, if the civilian passport date is greater than our system time, then it is a expired passport
-    // Forbidden name, and occupation concept is the same
-
-
     public static Scanner scanner = new Scanner(System.in);
     public static Random rand = new Random();
 
@@ -142,10 +133,10 @@ public class main01 {
         while (true){
             clrscr();
 
-            // KEEP CREATING INSTANCES AS WE APPROVE A CIVILIAN
+            // KEEP CREATING INSTANCES (RANDOMIZE NAME, AGE, OCCUPATION, AND EXPIRATION)
             LocalDate randomDate = generateRandomDate(startDate, endDate);
             Civilian civilian = new Civilian(firstNames[rand.nextInt(firstNames.length)], firstNames[rand.nextInt(lastNames.length)], 
-            occupations[rand.nextInt(occupations.length)], generateRandomAge(15, 80), formatDate(randomDate), greetingDialogs[rand.nextInt(greetingDialogs.length)]);
+            occupations[rand.nextInt(occupations.length)], generateRandomAge(15, 150), formatDate(randomDate), greetingDialogs[rand.nextInt(greetingDialogs.length)]);
             queue.offer(civilian);
 
             // REMOVING & RETRIEVING INSTANCES IN QUEUE
@@ -155,7 +146,6 @@ public class main01 {
             addDialogEffect("Here's my passport: ");
             clrscr();
             
-
             // MAYBE WE CAN CREATE SIMPLE BORDER FOR THIS ??
             System.out.println(" ------ PASSPORT DETAILS ---------");
             System.out.println("First Name: " + retrievedCivilan.fname);
@@ -164,18 +154,15 @@ public class main01 {
             System.out.println("Occupation: " + retrievedCivilan.occupation);
             System.out.println("Expiration Date: " + retrievedCivilan.expiration);
             
-            // DECISION INPUT
-
+          
             // CHECK THE INSTANCES VALUE (MAKE A FUNCTION FOR IT) - IN THAT FUNCTION, ALL FORBIDDEN VALUES ARE THERE, THIS WILL ONLY RETURN TRUE OR FALSE
+            
+            // COMPARE IT WITH DECISION INPUT
 
-            // IF IT RETURNED FALSE, BREAK THE MAIN LOOP
+
             break; // break for now (debugging purposes)
 
-
-
-
-            // RANDOMIZE NAME, AGE, OCCUPATION, AND EXPIRATION
-            
+          
 
         }
 
@@ -187,14 +174,32 @@ public class main01 {
         addDialogEffect("We decided to open the borders");
     }
 
-    public static boolean checkPassport(String criminalName, String name, int age, String occupation, String expdate){
+    public static boolean checkPassport(String criminal_fname, String criminal_lname, String civilian_fname, String civilian_lname, 
+                                        int civilian_age, String occupation, String expdate, String[] badOccupation){
         
         // TO DO: (FORBIDDEN VALUES CHECKER) 
-        // compare the date today, to the date of passport for checking if the passport is expired
-        // create one criminal
-        // age validator
-        // occupation validator
 
+        // CRIMINAL CHECKER - DONE
+        if (criminal_fname.equalsIgnoreCase(civilian_fname) && criminal_lname.equalsIgnoreCase(civilian_lname)) {
+            return true;
+        }
+
+        // AGE VALIDATOR - DONE
+        if (civilian_age > 100){ // maybe over a hundered years old is suspicious enough?
+            return true;
+        }
+
+        // OCCUPATION VALIDATOR - DONE
+        if (contains1D(badOccupation, occupation)){
+            return true;
+        }
+
+        // EXPDATE VALIDATOR
+
+
+
+
+        // RETURN FALSE IF NOT SUSPICIOUS
         return false;
     }
     
@@ -219,6 +224,16 @@ public class main01 {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         return date.format(formatter);
     }
+
+    public static boolean contains1D(String[] arr, String target){
+        for (String string : arr) {
+            if (string.equalsIgnoreCase(target)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     // -- RANDOM GENERATOR UTILS -- //
     public static int[] generateRandomIntArray(int size, int min, int max) {
