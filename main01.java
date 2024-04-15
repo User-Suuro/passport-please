@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class main01 {
-    public static Scanner scanner = new Scanner(System.in);
+    public static Scanner scan = new Scanner(System.in);
     public static Random rand = new Random();
 
     public static void main(String[] args) {
@@ -17,7 +17,7 @@ public class main01 {
         // -- STATES -- //
         Queue<Civilian> queue = new LinkedList<>();
         int numberOfApprovedCivilians = 0;
-        int civilianNumber = 0; 
+        int civilianNumber = 1; 
 
         // -- CONSTANTS -- // 
 
@@ -153,17 +153,34 @@ public class main01 {
             System.out.println("Age: " + retrievedCivilan.age);
             System.out.println("Occupation: " + retrievedCivilan.occupation);
             System.out.println("Expiration Date: " + retrievedCivilan.expiration);
-            
-          
-            // CHECK THE INSTANCES VALUE (MAKE A FUNCTION FOR IT) - IN THAT FUNCTION, ALL FORBIDDEN VALUES ARE THERE, THIS WILL ONLY RETURN TRUE OR FALSE
-            
+
             // COMPARE IT WITH DECISION INPUT
+            boolean isSuspiciousPassport = checkPassport(criminal_fname, criminal_lname, retrievedCivilan.fname, retrievedCivilan.lname, retrievedCivilan.age, retrievedCivilan.occupation, badOccupations, retrievedCivilan.expiration, formatCurrentDate);
 
+            System.out.println("PROCEED OR REJECT");
+            String userChoice = scan.nextLine();
 
-            break; // break for now (debugging purposes)
+            while (!userChoice.equalsIgnoreCase("PROCEED") && !userChoice.equalsIgnoreCase("REJECT")) {
+                System.out.println("Invalid input. Please enter either 'PROCEED' or 'REJECT':");
+                userChoice = scan.nextLine();
+            }
 
-          
+            if (isSuspiciousPassport && userChoice.equalsIgnoreCase("PROCEED")){
+                clrscr();
+                addDialogEffect("You lost! You allowed a suspcious civilian to enter the border. The country is now in danger.");
+                // player lost
+                break;  
+            }else if (!isSuspiciousPassport && userChoice.equalsIgnoreCase("PROCEED")){
+                numberOfApprovedCivilians++;
+                addDialogEffect("Approved Civilians: " + numberOfApprovedCivilians);
+            }
 
+            // win 
+            if (numberOfApprovedCivilians >= 10) {
+                addDialogEffect("You won! You Successfully allowed at least 10 civilians to the border without having a single suspcious civilian in");
+            }            
+
+            civilianNumber++;
         }
 
     }
@@ -175,9 +192,9 @@ public class main01 {
     }
 
     public static boolean checkPassport(String criminal_fname, String criminal_lname, String civilian_fname, String civilian_lname, 
-                                        int civilian_age, String occupation, String expdate, String[] badOccupation){
+                                        int civilian_age, String occupation, String[] badOccupation, String expdate, String formattedCurrentDate){
         
-        // TO DO: (FORBIDDEN VALUES CHECKER) 
+        // TO DO: (FORBIDDEN VALUES CHECKER) - RETURN TRUE IF SUS
 
         // CRIMINAL CHECKER - DONE
         if (criminal_fname.equalsIgnoreCase(civilian_fname) && criminal_lname.equalsIgnoreCase(civilian_lname)) {
@@ -195,9 +212,9 @@ public class main01 {
         }
 
         // EXPDATE VALIDATOR
-        
-
-
+        if (isDateLarger(formattedCurrentDate, expdate)){
+            return true;
+        }
 
         // RETURN FALSE IF NOT SUSPICIOUS
         return false;
@@ -220,6 +237,13 @@ public class main01 {
         return arr;
     }
 
+    public static boolean isDateLarger(String dateString1, String dateString2) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy"); // Adjust the format as needed
+        LocalDate date1 = LocalDate.parse(dateString1, formatter);
+        LocalDate date2 = LocalDate.parse(dateString2, formatter);
+        return date1.isAfter(date2);
+    }
+
     public static String formatDate(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         return date.format(formatter);
@@ -233,7 +257,6 @@ public class main01 {
         }
         return false;
     }
-
 
     // -- RANDOM GENERATOR UTILS -- //
     public static int[] generateRandomIntArray(int size, int min, int max) {
@@ -258,8 +281,6 @@ public class main01 {
         long randomEpochDay = startEpochDay + random.nextInt((int) (endEpochDay - startEpochDay));
         return LocalDate.ofEpochDay(randomEpochDay);
     }
-
-
 
     // -- DISPLAY UTILS -- //
 
@@ -295,12 +316,11 @@ public class main01 {
 
          System.out.println();
          System.out.println("Please press any key to continue");
-         scanner.nextLine();
+         scan.nextLine();
     }
 
    
 }
-
 
 
 class Civilian{
@@ -321,8 +341,3 @@ class Civilian{
     }
 
 }
-
-
-
-
-
