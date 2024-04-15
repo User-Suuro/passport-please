@@ -27,8 +27,8 @@ public class main01 {
 
         // CRIMINAL NAME
         String criminal_fname = firstNames[rand.nextInt(firstNames.length)];
-        String criminal_lname = lastNames[rand.nextInt(firstNames.length)];
-
+        String criminal_lname = lastNames[rand.nextInt(lastNames.length)];
+        
         // DIALOG
         String[] greetingDialogs = {
             "Hello!",
@@ -80,25 +80,16 @@ public class main01 {
 
         String[] badOccupations = {
             "Kidnapper",
-            "Thief",
             "Burglar",
             "Assassin",
             "Drug Dealer",
             "Bank Robber",
             "Scammer",
             "Blackmailer",
-            "Counterfeiter",
             "Smuggler",
             "Hacker",
-            "Fraudster",
-            "Pirate",
             "Arsonist",
-            "Embezzler",
-            "Extortionist",
-            "Hitman",
-            "Con Artist",
-            "Fence",
-            "Money Launderer"
+            "Embezzler",         
         };
         
         // COMBINE THE TWO ARRAY
@@ -135,7 +126,7 @@ public class main01 {
 
             // KEEP CREATING INSTANCES (RANDOMIZE NAME, AGE, OCCUPATION, AND EXPIRATION)
             LocalDate randomDate = generateRandomDate(startDate, endDate);
-            Civilian civilian = new Civilian(firstNames[rand.nextInt(firstNames.length)], firstNames[rand.nextInt(lastNames.length)], 
+            Civilian civilian = new Civilian(firstNames[rand.nextInt(firstNames.length)], lastNames[rand.nextInt(lastNames.length)], 
             occupations[rand.nextInt(occupations.length)], generateRandomAge(15, 150), formatDate(randomDate), greetingDialogs[rand.nextInt(greetingDialogs.length)]);
             queue.offer(civilian);
 
