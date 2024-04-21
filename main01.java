@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 public class main01 {
     public static Scanner scan = new Scanner(System.in);
     public static Random rand = new Random();
+    public String suspiciousDetail;
 
     public static void main(String[] args) {
         clrscr();
@@ -33,9 +34,6 @@ public class main01 {
         String[] greetingDialogs = {
             "Hello!",
             "Hi there!",
-            "Good morning!",
-            "Good afternoon!",
-            "Good evening!",
             "Hey!",
             "Greetings!",
             "Howdy!",
@@ -81,14 +79,11 @@ public class main01 {
         String[] badOccupations = {
             "Kidnapper",
             "Burglar",
-            "Assassin",
             "Drug Dealer",
             "Bank Robber",
             "Scammer",
-            "Blackmailer",
             "Smuggler",
             "Hacker",
-            "Arsonist",
             "Embezzler",         
         };
         
@@ -119,6 +114,7 @@ public class main01 {
        
         displayIntro(formatCurrentDate, criminal_fname, criminal_lname);
 
+    
 
         // -- MAIN LOOP -- // 
         while (true){
@@ -157,9 +153,10 @@ public class main01 {
             }
 
             if (isSuspiciousPassport && userChoice.equalsIgnoreCase("PROCEED")){
-                clrscr();
-                addDialogEffect("You lost! You allowed a suspcious civilian to enter the border. The country is now in danger.");
                 // player lost
+                clrscr();
+                addDialogEffect(returnSuspicousDetail(criminal_fname, criminal_lname, retrievedCivilan.fname, retrievedCivilan.lname, retrievedCivilan.age, retrievedCivilan.occupation, badOccupations, retrievedCivilan.expiration, formatCurrentDate));
+                addDialogEffectNoContinue("You lost! The country is now in danger.");
                 break;  
             }else if (!isSuspiciousPassport && userChoice.equalsIgnoreCase("PROCEED")){
                 numberOfApprovedCivilians++;
@@ -168,7 +165,8 @@ public class main01 {
 
             // win 
             if (numberOfApprovedCivilians >= 10) {
-                addDialogEffect("You won! You Successfully allowed at least 10 civilians to the border without having a single suspcious civilian in");
+                addDialogEffectNoContinue("You won! You Successfully allowed at least 10 civilians to the border without having a single suspcious civilian in");
+                break;  
             }            
 
             civilianNumber++;
@@ -184,7 +182,7 @@ public class main01 {
 
     public static boolean checkPassport(String criminal_fname, String criminal_lname, String civilian_fname, String civilian_lname, 
                                         int civilian_age, String occupation, String[] badOccupation, String expdate, String formattedCurrentDate){
-        
+
         // TO DO: (FORBIDDEN VALUES CHECKER) - RETURN TRUE IF SUS
 
         // CRIMINAL CHECKER - DONE
@@ -210,6 +208,35 @@ public class main01 {
         // RETURN FALSE IF NOT SUSPICIOUS
         return false;
     }
+
+    public static String returnSuspicousDetail(String criminal_fname, String criminal_lname, String civilian_fname, String civilian_lname, 
+                                        int civilian_age, String occupation, String[] badOccupation, String expdate, String formattedCurrentDate){
+
+        // TO DO: (FORBIDDEN VALUES CHECKER) - RETURN TRUE IF SUS
+
+        // CRIMINAL CHECKER - DONE
+        if (criminal_fname.equalsIgnoreCase(civilian_fname) && criminal_lname.equalsIgnoreCase(civilian_lname)) {
+            return "You allowed suspicious a criminal known as" + criminal_fname + " " + criminal_lname;
+        }
+
+        // AGE VALIDATOR - DONE
+        if (civilian_age > 100){ // maybe over a hundered years old is suspicious enough?
+            return civilian_age + " years old is a Suspicous age";
+        }
+
+        // OCCUPATION VALIDATOR - DONE
+        if (contains1D(badOccupation, occupation)){
+            return "You allowed a malicous " + occupation;
+        }
+
+        // EXPDATE VALIDATOR
+        if (isDateLarger(formattedCurrentDate, expdate)){
+            return expdate + " is an expired passport";
+        }
+
+        return "Something went wrong";
+    }
+    
     
     //method for shuffling 
     public static String[] shuffle(String[] arr)
@@ -309,6 +336,19 @@ public class main01 {
          System.out.println("Please press any key to continue");
          scan.nextLine();
     }
+
+    public static void addDialogEffectNoContinue(String line){
+        // Convert the String to a char array
+        char[] charArray = line.toCharArray();
+       
+        // Print each character in the char array
+        for (char c : charArray) {
+            System.out.print(c);
+            sleep(50);
+        }
+        
+        scan.nextLine();
+   }
 
     public static void displayInstructions() {
         System.out.println("╔═══════════════════════════════════════╗");
