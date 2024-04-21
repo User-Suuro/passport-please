@@ -310,7 +310,30 @@ public class main01 {
          scan.nextLine();
     }
 
-   
+    public static void displayInstructions() {
+        System.out.println("╔═══════════════════════════════════════╗");
+        System.out.println("║              Instructions             ║");
+        System.out.println("╠═══════════════════════════════════════╣");
+        System.out.println("║ 1. Review each civilian's passport    ║");
+        System.out.println("║    details carefully.                 ║");
+        System.out.println("║                                       ║");
+        System.out.println("║ 2. Type 'PROCEED' to allow a civilian ║");
+        System.out.println("║    to pass if their passport seems    ║");
+        System.out.println("║    legitimate.                        ║");
+        System.out.println("║                                       ║");
+        System.out.println("║ 3. Type 'REJECT' to deny entry to a   ║");
+        System.out.println("║    civilian if you suspect they may   ║");
+        System.out.println("║    pose a danger.                     ║");
+        System.out.println("║                                       ║");
+        System.out.println("║ 4. Your goal is to allow at least 10  ║");
+        System.out.println("║    genuine civilians to pass without  ║");
+        System.out.println("║    any security breaches.             ║");
+        System.out.println("║                                       ║");
+        System.out.println("║ 5. Be cautious - allowing a           ║");
+        System.out.println("║    suspicious individual to proceed   ║");
+        System.out.println("║    will be game over.                 ║");
+        System.out.println("╚═══════════════════════════════════════╝");
+    }
 }
 
 
