@@ -26,19 +26,27 @@ g.	If the player successfully met his/her quota without allowing suspicious civi
 
 
 Rules 
+
 Controls
+
 Type Approve to let the civilian pass to the border 
+
 Type Reject to not allow the civilian to pass the border
 
 Entity Generation
+
 The information generated for civilians, such as name, age, occupation, and passport expiry date, is randomly generated
 
 Win Condition
+
 If you check and approve 10 valid passports of civilian correctly without rejecting 3 civilians with a valid passport.
 
 Losing Condition
+
 a.	If you approve a civilian that has a suspicious passport which could endanger the country. But at the same time, you have to approve at least 5 civilians.
+
 b.	If you rejected a civilian that has a valid passport 3 times you lose.
+
 c.	If you let a civilian with invalid passport inside the country you don't automatically lose but if it reaches 3 invalid citizens with invalid passport then you lose.
 
 Display: This output will only utilize console 
