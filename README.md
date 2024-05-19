@@ -36,6 +36,7 @@ c.	If you let a civilian with invalid passport inside the country you don't auto
 
 Display: This output will only utilize console 
 
+FLOWCHART
 ![alt text](https://github.com/User-Suuro/passport-please/blob/main/flowchart.png)
 	
 Group Members (GROUP 7)
