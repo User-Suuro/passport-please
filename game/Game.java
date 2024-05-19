@@ -80,7 +80,7 @@ public class Game {
                 display.addDialogEffect("Warning! You allowed " + validate.returnSuspicousDetail(constant.criminal_fname, constant.criminal_lname, retrievedCivilan.fname, retrievedCivilan.lname, retrievedCivilan.age, retrievedCivilan.occupation, constant.badOccupations, retrievedCivilan.expiration, constant.formatCurrentDate));
                 state.numberOfApprovedBadCivilians++;
                 display.addDialogEffect("Approved Civlians that has bad passport:" + state.numberOfApprovedBadCivilians);
-            }else if (!isSuspiciousPassport && userChoice.equalsIgnoreCase("PROCEED")){
+             }else if (!isSuspiciousPassport && userChoice.equalsIgnoreCase("PROCEED")){
                 state.numberOfApprovedCivilians++;
                 display.addDialogEffect("Approved Civilians: " + state.numberOfApprovedCivilians);
             }else if (isSuspiciousPassport && userChoice.equalsIgnoreCase("REJECT")){ 
@@ -89,7 +89,6 @@ public class Game {
                 display.addDialogEffect("Warning!, You Rejected a civilian that has valid passport");
                 state.numberOfRejectedGoodCivilians++;
                 display.addDialogEffect("Rejected Civilians that has good passport: " + state.numberOfRejectedGoodCivilians);
-              
             }
 
             // player lost
@@ -106,7 +105,7 @@ public class Game {
             }
 
             // win 
-            if (state.numberOfApprovedCivilians >= 10) {
+            if (state.numberOfApprovedCivilians == 10) {
                 display.clrscr();
                 display.addDialogEffectNoContinue("You won! You Successfully allowed at least 10 civilians to the border");
                 break;  
