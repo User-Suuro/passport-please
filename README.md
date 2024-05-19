@@ -35,6 +35,8 @@ b.	If you rejected a civilian that has a valid passport 3 times you lose.
 c.	If you let a civilian with invalid passport inside the country you don't automatically lose but if it reaches 3 invalid citizens with invalid passport then you lose.
 
 Display: This output will only utilize console 
+
+![alt text](https://github.com/User-Suuro/passport-please/blob/main/flowchart.png)
 	
 Group Members (GROUP 7)
 Basister, John Llyod
