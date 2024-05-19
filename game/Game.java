@@ -12,7 +12,6 @@ import game.model.Civilian;
 import game.model.Constants;
 import game.model.States;
 
-
 public class Game {
     private static Scanner scan = new Scanner(System.in);
     private static Random rand = new Random();
@@ -68,7 +67,7 @@ public class Game {
             // COMPARE IT WITH DECISION INPUT
             boolean isSuspiciousPassport = validate.checkPassport(constant.criminal_fname, constant.criminal_lname, retrievedCivilan.fname, retrievedCivilan.lname, retrievedCivilan.age, retrievedCivilan.occupation, constant.badOccupations, retrievedCivilan.expiration, constant.formatCurrentDate);
             display.addAnimationEffect("PROCEED OR REJECT", 5);
-
+            
             String userChoice = scan.nextLine();
 
             while (!userChoice.equalsIgnoreCase("PROCEED") && !userChoice.equalsIgnoreCase("REJECT")) {

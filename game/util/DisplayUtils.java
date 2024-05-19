@@ -119,7 +119,7 @@ public class DisplayUtils {
     }
 
     public void pressAnyKeyToContinue(){
-        System.out.println("Press any key to continue");
+        System.out.println("Press enter to continue");
         scan.nextLine();
     }
 }
