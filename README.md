@@ -1,5 +1,4 @@
-TTITLE
-Passport Please: A Console-Based Passport Inspector Simulation - Inspired by Paper Please 
+TTITLE: Passport Please: A Console-Based Passport Inspector Simulation - Inspired by Paper Please 
 
 DESCRIPTION
 
