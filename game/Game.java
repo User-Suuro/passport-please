@@ -94,7 +94,7 @@ public class Game {
             // player lost
             if (state.numberOfRejectedGoodCivilians == 3){
                 display.clrscr();
-                display.addDialogEffect("You reject 3 civilians that has good passport. The president is angered with your actions. You are now fired!");
+                display.addDialogEffect("You rejected 3 civilians that has good passport. The president is angered with your actions. You are now fired!");
                 break;
             }
 

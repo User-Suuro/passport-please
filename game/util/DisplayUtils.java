@@ -109,6 +109,12 @@ public class DisplayUtils {
         addAnimationEffect("║ 5. Be cautious - allowing a           ║", speed);
         addAnimationEffect("║    3 suspicious individual to proceed ║", speed);
         addAnimationEffect("║    will be game over.                 ║", speed);
+        addAnimationEffect("║                                       ║", speed);
+        addAnimationEffect("║ 6. But also rejecting 3 civilians     ║", speed);
+        addAnimationEffect("║    that has valid passport, will      ║", speed);
+        addAnimationEffect("║    make the president mad, and you    ║", speed);
+        addAnimationEffect("║    will be fired                      ║", speed);
+        addAnimationEffect("║                                       ║", speed);
         addAnimationEffect("╚═══════════════════════════════════════╝", speed);
     }
 
