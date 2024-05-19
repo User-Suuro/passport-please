@@ -39,7 +39,7 @@ Display: This output will only utilize console
 FLOWCHART:
 ![alt text](https://github.com/User-Suuro/passport-please/blob/main/flowchart.png)
 	
-GROUP MEMBERS (GROUP 7)
+GROUP MEMBERS (GROUP 7):
 Basister, John Llyod
 Cambronero, Marc Paul
 Cruzana, Janelle
