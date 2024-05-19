@@ -1,7 +1,8 @@
-Title
+TTITLE
 Passport Please: A Console-Based Passport Inspector Simulation - Inspired by Paper Please 
 
-Description
+DESCRIPTION
+
 Lore: Amid the war, the President ordered his men to open the country’s borders. It was indeed a foolish action, but his kind heart is always open to those who are in need, and no one will stop him because he is a dictator at the same time. In such a dire situation, the president ordered you as a passport inspector for incoming evacuating civilians, you were tasked with such heavy responsibility that one wrong action could endanger the whole country.
 
 Objectives: As the Passport Inspector your main goal is to scan the passport information of incoming evacuating civilians. But beware of impostors that may deceive you, check each and every detail to ensure that the following information is valid. If you manage to correctly evacuate all the civilians and punish the impostors, you will guarantee the safety of your country.
@@ -39,7 +40,7 @@ Display: This output will only utilize console
 FLOWCHART
 ![alt text](https://github.com/User-Suuro/passport-please/blob/main/flowchart.png)
 	
-Group Members (GROUP 7)
+GROUP MEMBERS (GROUP 7)
 Basister, John Llyod
 Cambronero, Marc Paul
 Cruzana, Janelle
